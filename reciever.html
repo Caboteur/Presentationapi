@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+   <title>Receiver Example</title>
+   <script type="text/javascript" src="http://famium.fokus.fraunhofer.de/js/webscreens.all.min.js"></script>
+   <script type="text/javascript">
+      navigator.presentation.onpresent = function(evt){
+         var session = evt.session;
+         session.onmessage = function(msg){
+            console.log("onmessage",msg);
+            session.postMessage("bar");
+         }
+         session.onstatechange = function(){
+            if(session.state == "disconnected"){
+               window.close();
+            }
+         }
+      };
+   </script>
+</head>
+<body>
+   <h1>Receiver Example</h1>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+   <title>Sender Example</title>
+   <script type="text/javascript" src="http://famium.fokus.fraunhofer.de/js/webscreens.all.min.js"></script>
+   <script type="text/javascript">
+      navigator.presentation.onavailablechange = function(dict){
+         if(dict.available){
+            var session = navigator.presentation.requestSession("receiver.html");
+            session.onmessage = function(msg){
+               console.log("onmessage",msg);
+            };
+            session.onstatechange = function(){
+               console.log("onstatechange",session.state);
+               if(session.state == "connected"){
+                  session.postMessage("foo");
+               }
+            }
+         }
+      };
+   </script>
+</head>
+<body>
+   <h1>Sender Example</h1>
+</body>
+</html>
